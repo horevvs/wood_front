@@ -37,7 +37,8 @@
             </div>
         </div>
 
-        <Dialog v-model:visible="visible" modal header="Укажите ваши контакты" :style="{ width: '25rem' }">
+        <Dialog v-model:visible="visible" modal header="Укажите ваши контакты" :style="{ width: '25rem' }"
+            @hide="resetStore">
             <div v-if="store.show">
                 <div class="flex items-center gap-4 mb-4">
                     <InputText v-model="store.name" id="username" class="flex-auto custom-focus"
@@ -51,7 +52,6 @@
                     <InputText id="email" v-model="store.text" class="flex-auto custom-focus h-32"
                         placeholder="Опишите какой материл вы хотите?" autocomplete="off" />
                 </div>
-          
 
                 <div class="flex items-center gap-2">
                     <Checkbox v-model="store.box" inputId="ingredient1" name="pizza" value="Cheese" />
@@ -61,19 +61,17 @@
                 <div class="flex justify-end gap-2 mt-5">
                     <Button label="Custom Style" class="custom-button " @click="store.sendmessage()">Отправить</Button>
                 </div>
-
             </div>
 
             <div v-else-if="store.errors_msg" class=" h-32  ">
                 <div class="text-center my-5 flex justify-center flex-col ">
-
                     <p class="mt-5 text-xl">Введите пожалуйста все данные верно </p>
                 </div>
             </div>
 
             <div v-else class=" h-32  ">
                 <div class="text-center my-5 flex justify-center flex-col ">
-                    <img class="h-20 w-20 mx-auto" src="../public/images/tree.png" alt="">
+                   
                     <p class="mt-5 text-xl">Ваш запрос успешно отправлен! </p>
                 </div>
             </div>
@@ -112,5 +110,16 @@ import { useCounterStore } from "@/stores/store";
 const store = useCounterStore();
 import { ref } from "vue";
 const visible = ref(false);
+
+const resetStore = () => {
+    store.name = null;
+    store.phone = null;
+    store.text = null;
+    store.box = false;
+    store.errors_msg = null; // Или любое другое значение по умолчанию
+    store.show = true; // Если нужно вернуть к начальному состоянию
+};
+
+
 
 </script>

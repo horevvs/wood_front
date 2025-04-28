@@ -10,7 +10,7 @@ export const useCounterStore = defineStore("counter", {
     name: null,
     phone: null,
     text: null,
-    box: null,
+    box: false,
     write: false,
     data_getlist: null,
     admin_login: null,
@@ -18,6 +18,7 @@ export const useCounterStore = defineStore("counter", {
     text_consult: null,
     consult_name: null,
     consult_phone: null,
+    errors_modal: false,
     quantity: null,
     errors_msg: null,
     name_to_db: null,
@@ -33,8 +34,7 @@ export const useCounterStore = defineStore("counter", {
 
   actions: {
     sendmessage() {
-      const regexPhone = /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/;
-      if (regexPhone.test(this.name) !== null && this.phone !== null && this.text !== null && this.box !== null) {
+      if (this.name !== null && this.phone !== null && this.text !== null && this.box !== false) {
         let obj_send = {
           name: this.name,
           phone: this.phone,
@@ -63,15 +63,22 @@ export const useCounterStore = defineStore("counter", {
       }
     },
 
+
+
+
+
+
+
+
+
     sendmessage_consult() {
-    
-      if (this.сonsult_name!== null && this.consult_phone !== null) {
+      if (this.сonsult_name !== null && this.consult_phone !== null) {
         let obj_send = {
           name: this.consult_name,
           phone: this.consult_phone,
         };
 
-        fetch("http://localhost:3002/submit", {
+        fetch("http://localhost:3002/consult", {
           method: "POST",
           headers: {
             "Content-Type": "application/json;charset=utf-8",
@@ -82,31 +89,15 @@ export const useCounterStore = defineStore("counter", {
             this.consult_name = null;
             this.consult_phone = null;
             this.write = true;
+         
           }
         });
       } else {
         this.errors_write = true;
+
       }
+      
 
-
-
-
-
-
-
-
-
-
-      // fetch("http://localhost:3002/consult", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json;charset=utf-8", },
-      //   body: JSON.stringify(obj_send),
-      // }).then((response) => {
-      //   if (response.status == 201) {
-      //     this.consult_name = null;
-      //     this.consult_name = null;
-      //   }
-      // });
     },
 
     async admin_auth() {
@@ -150,25 +141,30 @@ export const useCounterStore = defineStore("counter", {
     },
 
     product_item(id) {
-      let obj = {
-        name: id,
-        size: this.phone_id,
-        quantity: this.quantity,
-      };
-
-      fetch("http://localhost:3002/order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-        },
-        body: JSON.stringify(obj),
-      }).then((response) => {
-        if (response.status == 201) {
-          this.show = false;
-          this.phone_id = null;
-          this.quantity = null;
-        }
-      });
+      if (this.phone_id !== null && this.quantity !== null) {
+        let obj = {
+          name: id,
+          size: this.phone_id,
+          quantity: this.quantity,
+        };
+        fetch("http://localhost:3002/order", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+          },
+          body: JSON.stringify(obj),
+        }).then((response) => {
+          if (response.status == 201) {
+            this.show = false;
+            this.phone_id = null;
+            this.quantity = null;
+            this.show_modal = false
+          }
+          else {
+            this.errors_modal = true;
+          }
+        });
+      }
     },
 
     async uploads() {

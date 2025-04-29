@@ -5,7 +5,7 @@ export const useCounterStore = defineStore("counter", {
     result: 4,
     show: true,
     show_modal: true,
-    getdatastory: null,
+    getdatastory: {},
     getdata: true,
     name: null,
     phone: null,
@@ -62,14 +62,6 @@ export const useCounterStore = defineStore("counter", {
         this.errors_msg = true;
       }
     },
-
-
-
-
-
-
-
-
 
     sendmessage_consult() {
       if (this.сonsult_name !== null && this.consult_phone !== null) {

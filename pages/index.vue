@@ -17,9 +17,7 @@
 <script setup>
 import { useCounterStore } from "@/stores/store";
 const store = useCounterStore();
-
 store.getlist()
-
 useHead({
     title: 'WoodHome - купить пиломатериалы Томск" | услуги пилорамы',
     meta: [

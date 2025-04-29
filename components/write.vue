@@ -8,28 +8,23 @@
         <div class="text-gray-500   mx-4 text-center mt-5 flex justify-center">
             <form class=" xl:mt-5" action="#" method="POST">
                 <div class="flex flex-col xl:flex-row   container mx-auto items-center">
-
                     <div class="m-4">
                         <input v-model="store.consult_name" type="text" id="name" placeholder="Укажите имя"
                             autocomplete="name" required
                             class="block xl:w-52  w-72  rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2" />
                     </div>
-
                     <div class="m-4">
                         <InputMask v-model="store.consult_phone" type="tel" id="phone" mask="8-999-999-99-99"
                             placeholder="укажите ваш номер телефона" autocomplete="phone" required
                             class="!block xl:w-52  w-72 -mt-5  md:-mt-0  !rounded-md !bg-white !px-3 !py-1.5 !text-base !text-gray-900 !outline !outline-1 !-outline-offset-1 !outline-gray-300 !placeholder:text-gray-400 !focus:outline-2 !focus:-outline-offset-2 !focus:outline-red-600" />
                     </div>
-
                     <div class="m-4">  
                         <button type='button' @click="store.sendmessage_consult()"
                             class='py-2.5 px-6 text-sm bg-amber-500  -mt-5  md:-mt-0  text-white rounded-lg cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-amber-700'>
                             Отправить
                         </button>
                     </div>
-
                 </div>
-
                 <div class=" text-center ">
                     <label for="link-checkbox1" class=" text-sm font-medium  dark:text-gray-300">Нажимая
                         “отправить”, Вы соглашаетесь<NuxtLink to="/conf"
@@ -39,7 +34,6 @@
                 </div>
             </form>
         </div>
-
         <Dialog v-model:visible="store.write" modal header="Укажите ваши контакты" :style="{ width: '25rem' }"
             @hide="resetStore2">
             <div class="text-center my-5 flex justify-center flex-col ">
@@ -47,7 +41,6 @@
                 <p class="mt-5 text-xl">Ваш запрос успешно отправлен! </p>
             </div>
         </Dialog>
-
         <Dialog v-model:visible="store.errors_write" modal header="Укажите ваши контакты" :style="{ width: '25rem' }"
             @hide="resetStore2">
             <div class="text-center my-5 flex justify-center flex-col ">
@@ -59,19 +52,12 @@
 </template>
 
 <script setup>
-import Button from 'primevue/button';
 import { useCounterStore } from '@/stores/store'
 const store = useCounterStore();
-
-import { ref } from "vue";
-const visible_window = ref(false);
-
-
 const resetStore2 = () => {
     store.consult_name = null;
     store.consult_phone = null;
     store.errors_write = null;
     store.write = false;
-
 };
 </script>

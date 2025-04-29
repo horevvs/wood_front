@@ -54,13 +54,13 @@
             </div>
 
             <div v-for="(item, index) in store.data_getlist" v-bind:key="index">
-                <div class="flex m-5 justify-around">
+                <div class="flex m-5 justify-start ">
                     <img class=" img_size_admin" :src=item.image_address alt="" />
-                    <p> {{ item.name }} </p> <br>
-                    <p> {{ item.description }} </p>
-                    <p> {{ item.size }} </p>
-                    <p> {{ item.price_for_one_beam }} рублей. </p>
-                    <p> {{ item.price_per_cubic_meter }} рублей. </p>
+                    <p class="m-2"> {{ item.name }} </p> <br>
+                    <p class="m-2"> {{ item.description }} </p>
+                    <p class="m-2"> {{ item.size }} </p>
+                    <p class="m-2"> {{ item.price_for_one_beam }} рублей. </p>
+                    <p class="m-2"> {{ item.price_per_cubic_meter }} рублей. </p>
                     <button type='button' @:click="store.admin_delete(item.id)"
                         class='py-2.5 px-6 text-sm bg-amber-500 text-white rounded-lg cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-amber-700'>
                         Удалить

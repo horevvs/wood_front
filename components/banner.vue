@@ -34,14 +34,3 @@ export default {
     },
 };
 </script>
-
-<!-- <style scoped>
-.cookie-banner {
-   
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-
-}
-</style> -->

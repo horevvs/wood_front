@@ -71,7 +71,6 @@
 
             <div v-else class=" h-32  ">
                 <div class="text-center my-5 flex justify-center flex-col ">
-                   
                     <p class="mt-5 text-xl">Ваш запрос успешно отправлен! </p>
                 </div>
             </div>
@@ -104,13 +103,11 @@ label[for="ingredient1"] {
 }
 </style>
 
-
 <script setup>
 import { useCounterStore } from "@/stores/store";
 const store = useCounterStore();
 import { ref } from "vue";
 const visible = ref(false);
-
 const resetStore = () => {
     store.name = null;
     store.phone = null;
@@ -119,7 +116,4 @@ const resetStore = () => {
     store.errors_msg = null; // Или любое другое значение по умолчанию
     store.show = true; // Если нужно вернуть к начальному состоянию
 };
-
-
-
 </script>

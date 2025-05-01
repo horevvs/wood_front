@@ -81,7 +81,6 @@ export const useCounterStore = defineStore("counter", {
             this.consult_name = null;
             this.consult_phone = null;
             this.write = true;
-         
           }
         });
       } else {
@@ -92,12 +91,39 @@ export const useCounterStore = defineStore("counter", {
 
     },
 
+    // async admin_auth() {
+    //   let obj_auth = {
+    //     username: this.admin_login,
+    //     password: this.admin_password,
+    //   };
+
+    //   await fetch("http://localhost:3002/admin", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json;charset=utf-8",
+    //     },
+    //     body: JSON.stringify(obj_auth),
+    //   })
+    //     .then((response) => response.json())
+    //     .then(async (data) => {
+    //       if (data.access) {
+    //         this.getdata = false;
+    //         const response = await fetch("http://localhost:3002/data");
+    //         const result = await response.json();
+    //         this.data_getlist = result;
+    //       } else {
+    //         alert("не правильно");
+    //       }
+    //     });
+    // },
+
+
     async admin_auth() {
       let obj_auth = {
         username: this.admin_login,
         password: this.admin_password,
       };
-
+    
       await fetch("http://localhost:3002/admin", {
         method: "POST",
         headers: {
@@ -108,6 +134,9 @@ export const useCounterStore = defineStore("counter", {
         .then((response) => response.json())
         .then(async (data) => {
           if (data.access) {
+            // Сохраняем данные в sessionStorage
+            sessionStorage.setItem('adminData', JSON.stringify(data));
+    
             this.getdata = false;
             const response = await fetch("http://localhost:3002/data");
             const result = await response.json();
@@ -117,7 +146,6 @@ export const useCounterStore = defineStore("counter", {
           }
         });
     },
-
 
 
     async getid(id) {

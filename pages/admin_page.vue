@@ -24,7 +24,13 @@
         </div>
 
         <div v-else>
-            <div class="m-5">Добавить пользователя </div>
+            <div class="m-5 flex justify-around" >
+                <p>Добавить пользователя</p>
+                <button type='button' @:click="exit()"
+                    class='py-2.5 px-6 text-sm bg-amber-500 text-white rounded-lg cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-amber-700'>
+                    выход
+                </button>
+            </div>
             <div class="container   ">
                 <div class="m-4"> <input type="text" id="name" placeholder="name" v-model="store.name_to_db"
                         class="block  rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2  " />
@@ -43,8 +49,9 @@
                         v-model="store.price_per_cubic_meter"
                         class="block  rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2  " />
                 </div>
-                <input @change="handleFileUpload" class="bg-gray-300 mx-4 border-gray-300 te text-sm rounded-lg block p-2.5"
-                    id="file" ref="file" type="file" accept=".jpg,.jpeg,.png,.pdf,.zip,.doc,.docx">
+                <input @change="handleFileUpload"
+                    class="bg-gray-300 mx-4 border-gray-300 te text-sm rounded-lg block p-2.5" id="file" ref="file"
+                    type="file" accept=".jpg,.jpeg,.png,.pdf,.zip,.doc,.docx">
                 <div class="m-4">
                     <button type='button' @:click="store.uploads()"
                         class='py-2.5 px-6 text-sm bg-amber-500 text-white rounded-lg cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-amber-700'>
@@ -75,7 +82,21 @@
 <script setup>
 import { useCounterStore } from "@/stores/store";
 const store = useCounterStore();
+import { onMounted } from 'vue';
 store.getlist()
+
+onMounted(() => {
+    const adminData = sessionStorage.getItem('adminData');
+    if (adminData) {
+        store.getdata = false;
+    }
+
+});
+
+ const exit = ()=>{
+    sessionStorage.removeItem('adminData');
+    store.getdata = true;
+ } 
 
 
 const handleFileUpload = (event) => {
@@ -99,6 +120,7 @@ const handleFileUpload = (event) => {
             console.log('There was a problem with the fetch operation:', error)
         })
 };
+
 
 
 </script>
